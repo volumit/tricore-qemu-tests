@@ -16,6 +16,19 @@
 """
 from Instruction import *
 
+insn = [Instruction("#d32random"   , [RandomRegisterDValue32("d14")                                               ]),
+        Instruction("#d32random"   , [RandomRegisterDValue32("d13")                                               ]),
+        Instruction("#d32randomPSWRM"   , [RandomRegisterDPSWRM("d15")                                               ]),
+        Instruction("hptof"       , [Register("d15")  , Register("d14")                                           ]),
+        Instruction("ftohp"       , [Register("d15")  , Register("d13")                                           ]),
+        Instruction("ftoq31"      , [Register("d15")  , Register("d14") , Register("d13")                         ]),
+        Instruction("q31tof"      , [Register("d15")  , Register("d14") , Register("d13")                         ]),
+#        Instruction("add.f"        , [Register("d15")  , Register("d14") , Register("d13")                         ]),
+        Instruction("ftoq31z"      , [Register("d15")  , Register("d14") , Register("d13")                         ]),
+       ]
+
+
+"""
 insn = [Instruction("add"       , [RandomRegister("d") , RandomRegister("d")                                                ]),
         Instruction("add"       , [RandomRegister("d") , RandomConstant(4, 1)                                               ]),
         Instruction("add"       , [Register("d15")     , RandomRegister("d")   , RandomRegister("d")                        ]),
@@ -641,14 +654,23 @@ insn = [Instruction("add"       , [RandomRegister("d") , RandomRegister("d")    
         Instruction("mul.f"       , [RandomRegister("d")  , RandomRegister("d") , RandomRegister("d")                         ]),
         Instruction("div.f"       , [RandomRegister("d")  , RandomRegister("d") , RandomRegister("d")                         ]),
         Instruction("ftoi"        , [RandomRegister("d")  , RandomRegister("d")                                               ]),
-        #Instruction("ftouz"        , [RandomRegister("d")  , RandomRegister("d")                                              ]),
+        Instruction("ftouz"        , [RandomRegister("d")  , RandomRegister("d")                                              ]),
         Instruction("itof"        , [RandomRegister("d")  , RandomRegister("d")                                               ]),
+        Instruction("ftoq31"      , [RandomRegister("d")  , RandomRegister("d") , RandomRegister("d")                         ]),
+        Instruction("ftoq31z"      , [RandomRegister("d")  , RandomRegister("d") , RandomRegister("d")                         ]),
         Instruction("madd.f"      , [RandomRegister("d")  , RandomRegister("d"), RandomRegister("d"), RandomRegister("d")     ]),
         Instruction("msub.f"      , [RandomRegister("d")  , RandomRegister("d"), RandomRegister("d"), RandomRegister("d")     ]),
         Instruction("extr"        , [RandomRegister("d")  , RandomRegister("d"), RandomPosWidthPair(5, 5)]),
         Instruction("extr.u"        , [RandomRegister("d")  , RandomRegister("d"), RandomPosWidthPair(5, 5)]),
         Instruction("imask"        , [RandomRegister64("e")  , RandomConstant(4,0), RandomPosWidthPair(5, 5)]),
         Instruction("imask"        , [RandomRegister64("e")  , RandomRegister("d"), RandomPosWidthPair(5, 5)]),
-        #Instruction("restore"  , [RandomRegister("d")                                                                         ]),
+        Instruction("restore"  , [RandomRegister("d")                                                                         ]),
+        Instruction("popcnt.w"  , [RandomRegister("d")  , RandomRegister("d") ,                                                ]),
+        Instruction("shuffle"   , [RandomRegister("d")  , RandomRegister("d") , RandomConstant(9,1)                           ]),
+        Instruction("crc32"    , [RandomRegister("d")  , RandomRegister("d") , RandomRegister("d")                         ]),
+        Instruction("crc32b.w"    , [RandomRegister("d")  , RandomRegister("d") , RandomRegister("d")                         ]),
+        Instruction("crc32l.w"    , [RandomRegister("d")  , RandomRegister("d") , RandomRegister("d")                         ]),
+        Instruction("crc32.b"    , [RandomRegister("d")  , RandomRegister("d") , RandomRegister("d")                         ]),
+        Instruction("crcn"    , [RandomRegister("d")  , RandomRegister("d") , RandomRegister("d"), RandomRegister("d")       ]),
        ]
-
+"""
