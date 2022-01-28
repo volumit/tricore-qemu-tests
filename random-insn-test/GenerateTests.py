@@ -25,8 +25,8 @@ from TestCase import TestCase
 
 
 def cleanup():
-    print "Cleaning up ..."
-    os.system("rm -r test*")
+    print "No Clean up, do it with make ..."
+#    os.system("rm -r test*")
 
 def main():
 
