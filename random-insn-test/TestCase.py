@@ -64,6 +64,9 @@ class TestCase:
                 f.write(self.generate(i))
             f.write("# test ends here --------------\n")
             # generate outro
+            f.write("movh %d15,hi:0x0000900d\n")
+            f.write("addi %d15,%d15,lo:0x0000900d\n")
+            f.write("mov.a %a14,%d15\n");
             f.write("label"+str(num_insn) +":debug\n")
             f.write("j label"+str(num_insn)+"\n")
 
@@ -89,34 +92,43 @@ class TestCase:
         return result
 
     def compile(self):
-        global tas, tld, ldscript
+        global tas, tld, tld_flags
+        global tas_flags
         global version
-        print_out("Compiling "+ self.name)
+        #print_out("Compiling "+ self.name)
         # asm
-        os.system(tas + " -mtc"+version+" -o0 " + self.name+"/"+self.name+".s -o" + self.name+"/"+self.name+".o")
+        print_out("Assemble " + tas + " " + tas_flags + " " + self.name+"/"+self.name+".s -o" + self.name+"/"+self.name+".o")
+        os.system(tas + " " + tas_flags + " " + self.name+"/"+self.name+".s -o" + self.name+"/"+self.name+".o")
         # ld
-        ld_str = "{ld} -T {script} {name}/{name}.o -o {name}/{name}.elf".format(ld=tld, ver=version, script=ldscript, name=self.name)
+        ld_str = "{ld} {ld_flags} {name}/{name}.o -o {name}/{name}.elf".format(ld=tld, ld_flags=tld_flags, name=self.name)
+        print_out("Link " + ld_str)
         os.system(ld_str)
+        print_out("Dissassemble " + tobjdump + " " + tobjdump_flags + " " + self.name+"/"+self.name+".elf"+ " >"+self.name+"/"+self.name+".lst")
+        os.system(tobjdump + " " + tobjdump_flags + " " + self.name+"/"+self.name+".elf"+ " >"+self.name+"/"+self.name+".lst")
+
 
     def runTSIM(self):
         global tsim
+        global tsim_flags
         global version
-        print_out("Running TSIM for " + self.name)
+        #print_out("Running TSIM for " + self.name)
 
         exe = "cd " + self.name + "&&" +                 \
-              tsim + " -e -disable-watchdog -o " + self.name +".elf"
+              tsim + " " + tsim_flags + " " + self.name +".elf"
 
+        print_out("Running TSIM "+exe)
         os.system(exe)
         os.system("mv " + self.name + "/Sim.traceinstr " + self.name  + "/tsim.result")
 
     def runQEMU(self):
         global qemu
+        global qemu_flags
         print_out("Running QEMU for " + self.name)
 
         f = open(self.name+"/run_qemu.sh", "w")
 
         movdir = "cd {}".format(self.name)
-        qemu_cmd = "{QEMU} -cpu tc27x -machine tricore_testboard -kernel {test}.elf -nographic -signlestep -D qemu.result -d nochain,exec,cpu".format(test=self.name, QEMU=qemu)
+        qemu_cmd = "{QEMU} {QEMU_FLAGS} -kernel {test}.elf ".format(test=self.name, QEMU=qemu, QEMU_FLAGS=qemu_flags)
         exe = "{} && {}".format(movdir, qemu_cmd)
         f.write("#!/bin/sh\n")
         f.write(qemu_cmd)
