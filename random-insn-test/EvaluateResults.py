@@ -27,6 +27,18 @@ def findQemuLineByNum(number):
     idx = int(number)+1
     return qemudata.split("Trace")[idx].strip()
 
+def findTsimInsn(line):
+        result = list()
+        string = "\t"
+        insn_pos = line.find(string)
+        if insn_pos == 0:
+               return "Insn Not Found"
+        insn_pos = insn_pos+10
+        insn_end = line.find(string,insn_pos)
+        if insn_end == 0:
+               return "Insn Not Found"
+        return line[insn_pos:insn_end]
+
 #take only wb registers into account
 def findTsimRegA(line):
         result = list()
@@ -127,7 +139,7 @@ def compareRegA(tsimline,qemuline,linenum):
             qemuvalue = qemuline.a[i]
             if int(tsimline[startpos:endpos].strip(),16) <> qemuvalue:
                 error = error +1
-                print "Error at Instruction "+str(linenum) + " PC: " + str(hex(qemuline.pc)) + " a["+str(i)+"] tsim =" + tsimline[startpos:endpos].strip() + ", qemu =" + str(hex(qemuvalue))
+                print "Error at Instruction "+str(linenum) + " PC: " + str(hex(qemuline.pc)) + " a["+str(i)+"] tsim =" + tsimline[startpos:endpos].strip() + ", qemu =" + str(hex(qemuvalue)) + " " + findTsimInsn(tsimline)
         i = i+1
 
 
@@ -140,7 +152,7 @@ def compareRegD(tsimline,qemuline,linenum):
             qemuvalue = qemuline.d[i]
             if int(tsimline[startpos:endpos].strip(),16) <> qemuvalue:
                 error = error +1
-                print "Error at Instruction "+str(linenum) + " PC: " + str(hex(qemuline.pc)) + " d["+str(i)+"] tsim =" + tsimline[startpos:endpos].strip() + ", qemu =" + str(hex(qemuvalue))
+                print "Error at Instruction "+str(linenum) + " PC: " + str(hex(qemuline.pc)) + " d["+str(i)+"] tsim =" + tsimline[startpos:endpos].strip() + ", qemu =" + str(hex(qemuvalue))+ " " + findTsimInsn(tsimline)
         i = i+1
 
 def comparePSW(tsimline, qemuline, linenum):
@@ -153,8 +165,7 @@ def comparePSW(tsimline, qemuline, linenum):
 
     if int(psw_tsim,16) <> psw_qemu:
         error = error +1
-        print "Error at Instruction "+str(linenum) + " PC: " + str(hex(qemuline.pc)) + " PSW: tsim =" + str(psw_tsim) + ", qemu =" + str(hex(psw_qemu))
-
+        print "Error at Instruction "+str(linenum) + " PC: " + str(hex(qemuline.pc)) + " PSW: tsim =" + str(psw_tsim) + ", qemu =" + str(hex(psw_qemu)) + " " + findTsimInsn(tsimline)
 
 if len(sys.argv) < 3:
     printhelp()
@@ -172,7 +183,9 @@ for tsimline in tsimdata[:-1]:
     addresspos_end = int(tsimline.find("\t",addresspos_start+1))
 
     tsimaddress = tsimline[addresspos_start+1:addresspos_end]
-    tsiminst_num = tsimline[0:tsimline.find("(")]
+#    tsiminst_num = tsimline[0:tsimline.find("(")]
+#newer tsim versions have "VMO " as lead in the line
+    tsiminst_num = tsimline[4:tsimline.find("(")]
     qemuline = findQemuLineByNum(tsiminst_num)
     ctx = parseQEMULine(qemuline)
     compareRegA(tsimline,ctx,tsiminst_num)
