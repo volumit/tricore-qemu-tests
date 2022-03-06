@@ -37,13 +37,28 @@ class Register(InstructionField):
         self.name = "%"+name
         lastRegister = self
 
+def getnextdx(line):
+        string = line[1:len(line)]
+        regnr = int(string)
+        regnr = regnr +1 
+        return "d"+str(regnr)
+
 class RandomRegisterDValue32(InstructionField):
 
     def __init__(self, name):
         self.name = name
+        
     def getString(self):
         return "#Init a Data Register with a Random 32bit value \n" + "movh %" + self.name + ",hi:" + str(randint(0, 65535)*65536) + "\naddi %"+self.name+",%"+self.name+",lo:"+str(randint(0, 65535))
 
+        
+class RandomRegisterEValue64(InstructionField):
+
+    def __init__(self, name):
+        name=name.replace("e", "d")
+        self.name = name
+    def getString(self):
+        return "#Init a EData Register with a Random 64bit value \n" + "movh %" + self.name + ",hi:" + str(randint(0, 65535)*65536) + "\naddi %"+self.name+",%"+self.name+",lo:"+str(randint(0, 65535)) + "\nmovh %" + getnextdx(self.name) + ",hi:" + str(randint(0, 65535)*65536) + "\naddi %"+getnextdx(self.name)+",%"+getnextdx(self.name)+",lo:"+str(randint(0, 65535))
 
 class RandomRegisterDPSWRM (InstructionField):
 
@@ -52,6 +67,33 @@ class RandomRegisterDPSWRM (InstructionField):
     def getString(self):
         return "#Update PSW with Random Rounding Mode \n" + "movh %" + self.name + ",hi:" + "0" + "\naddi %"+self.name+",%"+self.name+",lo:"+str(randint(0, 3)+3*256) + "\nupdfl %"+self.name
 
+class RandomRegisterDPSWRM_0 (InstructionField):
+
+    def __init__(self, name):
+        self.name = name
+    def getString(self):
+        return "#Update PSW with Random Rounding Mode \n" + "movh %" + self.name + ",hi:" + "0" + "\naddi %"+self.name+",%"+self.name+",lo:"+str(0+3*256) + "\nupdfl %"+self.name
+
+class RandomRegisterDPSWRM_1 (InstructionField):
+
+    def __init__(self, name):
+        self.name = name
+    def getString(self):
+        return "#Update PSW with Random Rounding Mode \n" + "movh %" + self.name + ",hi:" + "0" + "\naddi %"+self.name+",%"+self.name+",lo:"+str(1+3*256) + "\nupdfl %"+self.name
+
+class RandomRegisterDPSWRM_2 (InstructionField):
+
+    def __init__(self, name):
+        self.name = name
+    def getString(self):
+        return "#Update PSW with Random Rounding Mode \n" + "movh %" + self.name + ",hi:" + "0" + "\naddi %"+self.name+",%"+self.name+",lo:"+str(2+3*256) + "\nupdfl %"+self.name
+
+class RandomRegisterDPSWRM_3 (InstructionField):
+
+    def __init__(self, name):
+        self.name = name
+    def getString(self):
+        return "#Update PSW with Random Rounding Mode \n" + "movh %" + self.name + ",hi:" + "0" + "\naddi %"+self.name+",%"+self.name+",lo:"+str(3+3*256) + "\nupdfl %"+self.name
 
         
 class RegisterOffset(InstructionField):
