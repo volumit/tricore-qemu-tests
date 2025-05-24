@@ -1,0 +1,59 @@
+
+INFINEON TECHNOLOGIES TRICORE ISS
+
+ATTENTION: TSIM is an ARCHITECTURAL MODEL
+cycle counts are approximate.
+
+VERSION: TC_MODELS_1.18.109
+         Build Time: 21:23:22 on Oct 11 2021
+         32 bit build
+         Setting simulator to TC16P B-STEP mode
+
+Command Line Arguments:
+
+(MConfig) No memory configuration file specified / Error opening: /home/dummy/BUILD/build_linux_gcc940/testsuite_gcc940/gcc/../etc//MConfig
+(MConfig) No memory configuration file specified / Error opening: ./MConfig
+Running with default configuration 
+
+Default Cache Configuration:
+
+Default Memory Configuration:
+Default Code cache: enabled:0 lines:64   ways:4   line size:32 access time:0 lru:pseudo LRU
+Default Data cache: enabled:0 lines:64   ways:4   line size:32 access time:0 lru:pseudo LRU
+CODE SCRATCH: DEFAULT_MAP: 0xC0000000 - 0xC0007FFF, access_time: 0
+DATA SCRATCH: DEFAULT_MAP: 0xD0000000 - 0xD0007FFF, access_time: 0
+EXTERNAL MEM: DEFAULT_MAP: 0x80000000 - 0xBFFFFFFF, access_time: 7
+EXTERNAL MEM: DEFAULT_MAP: 0xDF000000 - 0xDFFFFFFF, access_time: 7
+EXTERNAL MEM: DEFAULT_MAP: 0xE2000000 - 0xE2000FFF, access_time: 7
+EXTERNAL MEM: DEFAULT_MAP: 0xA0000000 - 0xA0FFFFFF, access_time: 7
+EXTERNAL MEM: DEFAULT_MAP: 0xF0000000 - 0xF0003FFF, access_time: 7
+
+Peripheral Register Base Address Configuration:
+sfr base address   : 0xf8810000
+cps base address   : 0xf8800000
+dmi base address   : 0xf87ffc00
+pmi base address   : 0xf87ffd00
+lfi base address   : 0xf87fff00
+wdt base address   : 0xf0036000
+stm base address   : 0xf0000000
+gptu0 base address : 0xf0000600
+IR SRC base address: 0xf0038000
+
+reset: pc = a0000000
+
+(PConfig) No peripheral configuration file specified / Error opening: /home/dummy/BUILD/build_linux_gcc940/testsuite_gcc940/gcc/../etc//PConfig
+(PConfig) No peripheral configuration file specified / Error opening: ./PConfig
+Running with default configuration 
+
+(IConfig) No external interrupt file specified / Error opening: /home/dummy/BUILD/build_linux_gcc940/testsuite_gcc940/gcc/../etc//IConfig
+(IConfig) No external interrupt file specified / Error opening: ./IConfig
+Running with default configuration 
+(DConfig) No device plugin file specified / Error opening: /home/dummy/BUILD/build_linux_gcc940/testsuite_gcc940/gcc/../etc//DConfig
+(DConfig) No device plugin file specified / Error opening: ./DConfig
+Running with default configuration 
+
+Number of protection register sets: 4
+Number of code protection ranges:   8
+Number of data protection ranges:   16
+
+All Files setup for simulation run

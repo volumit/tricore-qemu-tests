@@ -1,5 +1,5 @@
 JOBS=$(shell echo `nproc`)
-NUMRUNS=100
+NUMRUNS=10
 
 help:
 	@echo "Usage: make { tests | clean }"

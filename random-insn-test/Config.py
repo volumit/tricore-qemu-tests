@@ -5,7 +5,7 @@
 ###########################
 #prefix = "/home/dummy/tricore_494_linux/bin/"
 #tc18
-prefix = "/home/dummy/tricore_4941_linux/bin/"
+prefix = "/home/dummy/tricore_113_linux/bin/"
 
 tas     = prefix + "tricore-elf-as"
 #tas_flags ="-mtc162 -o0"
@@ -25,7 +25,7 @@ tobjdump_flags = "-D "
 #tsim_flags = "-tc162p -DConfig ../DCONFIG -MConfig ../MCONFIG -e -disable-watchdog -x 100000 -o "
 
 #for tc18
-tsim = "/home/dummy/BUILD/build_linux_gcc4941/testsuite/gcc/tsim16p_e_mtc18"
+tsim = "/home/dummy/BUILD/build_linux_gcc940/testsuite_gcc940/gcc/tsim16p_e_mtc18"
 #tsim_flags = "-DConfig ../DCONFIG -MConfig ../MCONFIG -e -disable-watchdog -x 100000 -o "
 tsim_flags = "-tc18 -dp_fpu -DConfig ../DCONFIG -MConfig ../MCONFIG -e -disable-watchdog -x 100000 -o "
 
